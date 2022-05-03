@@ -24,34 +24,54 @@ jobs:
       -
         name: Checkout 
         uses: actions/checkout@v2
+        
       -
-        name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Build and push
+        name: Get short SHA
+        run: echo "GHA_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
+
+      - 
+        name: Build
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
+          tags: lwsobik/simplewhale:${{ env.GHA_SHA }},lwsobik/simplewhale:latest
+          load: true
           
-      - uses: lacework/lw-scanner-action@v0.6.0
+      
+    #  -
+    #    name: Set up Docker Buildx
+    #    uses: docker/setup-buildx-action@v1
+   #   -
+    #    name: Build and push
+    #    uses: docker/build-push-action@v2
+    #    with:
+    #      context: .
+   #       file: ./Dockerfile
+    #      push: true
+   #       tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
+          
+      - 
+        uses: lacework/lw-scanner-action@v0.6.0
         name: Scan container images for vulnerabitilies using Lacework
         with:
                 LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
                 LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-                IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale
-                IMAGE_TAG: latest
+                IMAGE_NAME: lwsobik/simplewhale
+                IMAGE_TAG: ${{ env.GHA_SHA }}
                 SAVE_RESULTS_IN_LACEWORK: true
                 SAVE_BUILD_REPORT: true
                 BUILD_REPORT_FILE_NAME: myreport.html
                 FAIL_BUILD: false
                 SEVERITY_THRESHOLD: fixable
-
+      -      
+        name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - 
+        name: tag and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: lwsobik/simplewhale:${{ env.GHA_SHA }},lwsobik/simplewhale:latest
