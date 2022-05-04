@@ -90,7 +90,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: set image deployment/whale-deployment whale-deployment=wsobik/simplewhale:${{ env.GHA_SHA }} 
+          args: set image deployment/whale-deployment whale-deployment=lwsobik/simplewhale:${{ env.GHA_SHA }} 
 #
 #         - name: verify deployment
 #           uses: kodermax/kubectl-aws-eks@master
