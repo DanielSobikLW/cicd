@@ -83,3 +83,17 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      -             -
+        name: deploy to cluster
+        uses: kodermax/kubectl-aws-eks@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: set image deployment/whale-deployment whale-deployment=wsobik/simplewhale:${{ env.GHA_SHA }} 
+#
+#         - name: verify deployment
+#           uses: kodermax/kubectl-aws-eks@master
+#           env:
+#             KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+#           with:
+#             args: rollout status deployment/my-tweet-app -w -n lacework
