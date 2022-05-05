@@ -90,7 +90,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: set image deployment/whale-deployment whale-deployment=lwsobik/simplewhale:${{ env.GHA_SHA }} -n whale 
+          args: set image deployment/whale-deployment simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }} -n whale 
 
       - 
         name: verify deployment
