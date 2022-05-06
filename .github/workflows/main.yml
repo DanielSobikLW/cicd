@@ -54,8 +54,7 @@ jobs:
              aws-region: us-east-1
              
          - name: Install and configure kubectl
-             run:|
-             VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+           run:  |
              curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
              --progress-bar \
              --location \
