@@ -63,3 +63,9 @@ jobs:
              chmod +x kubectl
              sudo mv kubectl /usr/local/bin/
              echo ${{ secrets.KUBECONFIG }} | base64 --decode
+
+         - name: deploy
+           uses: tale/kubectl-action@v1
+           with:
+             base64-kube-config: ${{ secrets.KUBE_CONFIG_DATA }}
+           run: kubectl get pods
