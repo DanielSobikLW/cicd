@@ -97,11 +97,11 @@ jobs:
          uses: kodermax/kubectl-aws-eks@master
          with:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-          args: set image deployment/whale-deployment simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }} 
+          args: set image deployment/whale-dep simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }} 
 
        - 
          name: verify deployment
          uses: kodermax/kubectl-aws-eks@master
          with:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-          args: rollout status deployment/whale-deployment
+          args: rollout status deployment/whale-dep
