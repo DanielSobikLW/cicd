@@ -84,26 +84,24 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-      -     
-        name: Kubectl Action
-        uses: tale/kubectl-action@v1
-        with:
-          base64-kube-config: ${{ secrets.KUBE_CONFIG_DATA }}
+#      -     
+ #       name: Kubectl Action
+  #      uses: tale/kubectl-action@v1
+   #     with:
+    #      base64-kube-config: ${{ secrets.KUBE_CONFIG_DATA }}
           
-      - run: kubectl get pods
+     # - run: kubectl get pods
           
-#      -             
- #       name: deploy to cluster
-  #      uses: kodermax/kubectl-aws-eks@master
-   #     env:
-    #      KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-     #   with:
-      #    args: set image deployment/whale-deployment simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }} -n whale 
+       -             
+         name: deploy to cluster
+         uses: kodermax/kubectl-aws-eks@master
+         with:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          args: set image deployment/whale-deployment simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }} 
 
-#      - 
- #       name: verify deployment
-  #      uses: kodermax/kubectl-aws-eks@master
-   #     env:
-    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-     #   with:
-      #    args: rollout status deployment/whale-deployment -w -n whale
+       - 
+         name: verify deployment
+         uses: kodermax/kubectl-aws-eks@master
+         with:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          args: rollout status deployment/whale-deployment
