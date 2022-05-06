@@ -53,11 +53,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-     - name: Kubectl Action
-       uses: tale/kubectl-action@v1
-       with:
-          base64-kube-config: ${{ secrets.KUBE_CONFIG_DATA }}
-     - run: kubectl get pods        
+ #    - name: Kubectl Action
+  #     uses: tale/kubectl-action@v1
+   #    with:
+    #      base64-kube-config: ${{ secrets.KUBE_CONFIG_DATA }}
+     #- run: kubectl get pods        
 #       -             
  #        name: deploy to cluster
   #       uses: kodermax/kubectl-aws-eks@master
