@@ -68,6 +68,7 @@ jobs:
          - name: Install and configure kubectl
            env:
              KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-           run: echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config
-                export KUBECONFIG=/tmp/config
-  #           kubectl get pods
+           run: |
+             echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config \
+             export KUBECONFIG=/tmp/config \
+             kubectl get pods
