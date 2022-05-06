@@ -20,7 +20,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       -
         name: Checkout 
         uses: actions/checkout@v2
@@ -90,8 +90,7 @@ jobs:
    #     with:
     #      base64-kube-config: ${{ secrets.KUBE_CONFIG_DATA }}
           
-     # - run: kubectl get pods
-          
+     # - run: kubectl get pods        
 #       -             
  #        name: deploy to cluster
   #       uses: kodermax/kubectl-aws-eks@master
