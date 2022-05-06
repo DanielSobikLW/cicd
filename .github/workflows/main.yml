@@ -95,13 +95,15 @@ jobs:
        -             
          name: deploy to cluster
          uses: kodermax/kubectl-aws-eks@master
-         with:
+         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+         with:
           args: set image deployment/whale-dep simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }} 
 
        - 
          name: verify deployment
          uses: kodermax/kubectl-aws-eks@master
-         with:
+         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+         with:
           args: rollout status deployment/whale-dep
