@@ -53,10 +53,12 @@ jobs:
              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
              aws-region: us-east-1
              
-         - name: deploy to cluster
-           uses: kodermax/kubectl-aws-eks@master
-           env:
-             KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-             IAM_VERSION: "0.5.6"
-           with:
-             args: set image deployment/whale-dep simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }} 
+         - name: Install and configure kubectl
+             run: |
+             VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+             curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
+             --progress-bar \
+             --location \
+             --remote-name
+             chmod +x kubectl
+             sudo mv kubectl /usr/local/bin/
