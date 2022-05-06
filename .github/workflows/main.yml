@@ -64,8 +64,6 @@ jobs:
              --remote-name
              chmod +x kubectl
              sudo mv kubectl /usr/local/bin/
-             echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config
+             echo "$KUBE_CONFIG_DATA"  > /tmp/config
              export KUBECONFIG=/tmp/config
-
-         - name: deploy      
-           run: kubectl get pods
+             kubectl get pods
