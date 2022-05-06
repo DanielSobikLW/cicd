@@ -57,5 +57,6 @@ jobs:
            uses: kodermax/kubectl-aws-eks@master
            env:
              KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+             IAM_VERSION: "0.5.6"
            with:
              args: set image deployment/whale-dep simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }} 
