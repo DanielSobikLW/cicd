@@ -9,55 +9,55 @@ jobs:
     runs-on: ubuntu-latest         
     steps:
          
-           - name: Checkout 
-             uses: actions/checkout@v2
+     - name: Checkout 
+       uses: actions/checkout@v2
         
-           - name: Get short SHA
-             run: echo "GHA_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
+     - name: Get short SHA
+       run: echo "GHA_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
 
-           - name: Build
-             uses: docker/build-push-action@v2
-             with:
-                tags: lwsobik/simplewhale:${{ env.GHA_SHA }},lwsobik/simplewhale:latest
-                load: true
+     - name: Build
+       uses: docker/build-push-action@v2
+       with:
+          tags: lwsobik/simplewhale:${{ env.GHA_SHA }},lwsobik/simplewhale:latest
+          load: true
            
-           - name: Scan container images for vulnerabitilies using Lacework
-             uses: lacework/lw-scanner-action@v0.6.0
-             with:
-                LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
-                LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
-                IMAGE_NAME: lwsobik/simplewhale
-                IMAGE_TAG: ${{ env.GHA_SHA }}
-                SAVE_RESULTS_IN_LACEWORK: true
-                SAVE_BUILD_REPORT: true
-                BUILD_REPORT_FILE_NAME: myreport.html
-                FAIL_BUILD: false
-                SEVERITY_THRESHOLD: fixable
+     - name: Scan container images for vulnerabitilies using Lacework
+       uses: lacework/lw-scanner-action@v0.6.0
+       with:
+          LW_ACCOUNT_NAME: ${{ secrets.LW_ACCOUNT_NAME }} 
+          LW_ACCESS_TOKEN: ${{ secrets.LW_ACCESS_TOKEN }}
+          IMAGE_NAME: lwsobik/simplewhale
+          IMAGE_TAG: ${{ env.GHA_SHA }}
+          SAVE_RESULTS_IN_LACEWORK: true
+          SAVE_BUILD_REPORT: true
+          BUILD_REPORT_FILE_NAME: myreport.html
+          FAIL_BUILD: false
+          SEVERITY_THRESHOLD: fixable
                 
-           - name: Login to Docker Hub
-             uses: docker/login-action@v1
-             with:
-                username: ${{ secrets.DOCKER_HUB_USERNAME }}
-                password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+     - name: Login to Docker Hub
+       uses: docker/login-action@v1
+       with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           
-           - name: tag and push
-             uses: docker/build-push-action@v2
-             with:
-                push: true
-                tags: lwsobik/simplewhale:${{ env.GHA_SHA }},lwsobik/simplewhale:latest
+     - name: tag and push
+       uses: docker/build-push-action@v2
+       with:
+          push: true
+          tags: lwsobik/simplewhale:${{ env.GHA_SHA }},lwsobik/simplewhale:latest
           
-           - name: Configure AWS credentials
-             uses: aws-actions/configure-aws-credentials@v1
-             with:
-                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                aws-region: us-east-1
+     - name: Configure AWS credentials
+       uses: aws-actions/configure-aws-credentials@v1
+       with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
           
-           - name: Kubectl Action
-             uses: tale/kubectl-action@v1
-             with:
-               base64-kube-config: ${{ secrets.KUBE_CONFIG_DATA }}
-          - run: kubectl get pods        
+     - name: Kubectl Action
+       uses: tale/kubectl-action@v1
+       with:
+          base64-kube-config: ${{ secrets.KUBE_CONFIG_DATA }}
+     - run: kubectl get pods        
 #       -             
  #        name: deploy to cluster
   #       uses: kodermax/kubectl-aws-eks@master
