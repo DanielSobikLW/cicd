@@ -59,6 +59,7 @@ jobs:
              kube_config_data: ${{ secrets.KUBE_CONFIG_DATA }}
              aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
              aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+             aws-region: us-east-1
            with:
              args: set image deployment/whale-dep simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }}
              
