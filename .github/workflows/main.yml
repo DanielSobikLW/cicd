@@ -60,10 +60,10 @@ jobs:
              K8S_DEPLOYMENT_NAME: whale-dep
              K8S_NAMESPACE: default
 
-             run:  |
-              echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config \
-              export KUBECONFIG=/tmp/config \
-              kubectl get pods
+           run:  |
+             echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config \
+             export KUBECONFIG=/tmp/config \
+             kubectl get pods
 
 #           run:  |
  #            VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
