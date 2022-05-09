@@ -54,11 +54,23 @@ jobs:
              aws-region: us-east-1
              
          - name: Install and configure kubectl
-           uses: kodermax/kubectl-aws-eks@master
+           uses: qazz92/kubectl@1.0.3
            env:
-             KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA_STAGING }}
+             kube_config_data: ${{ secrets.KUBE_CONFIG_DATA }}
+             aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+             aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
            with:
              args: set image deployment/whale-dep simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }}
+             
+         - name: verify deployment
+           uses: qazz92/kubectl@1.0.3
+           env:
+             kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
+             aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+             aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+             aws_region: us-east-1
+           with:
+             args: '"rollout status deployment/whale-dep"'
              
            
 #           run:  |
