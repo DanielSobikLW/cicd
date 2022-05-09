@@ -54,12 +54,15 @@ jobs:
              aws-region: us-east-1
              
          - name: Trigger Deploy
-           uses: tuongaz/kubctl-eks-action
+           uses: ravinayag/aws-eks-action@v0.1
            env:
              KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
              aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
              aws-region: us-east-1
+             cluster_name: dsobik-cluster
+             K8S_DEPLOYMENT_NAME: whale-dep
+             K8S_NAMESPACE: default
            with:
              args: set image deployment/whale-dep simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }}
              
