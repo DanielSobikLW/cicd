@@ -61,13 +61,10 @@ jobs:
              K8S_NAMESPACE: default
 
              run:  |
-              set -e \
               echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config \
               export KUBECONFIG=/tmp/config \
               kubectl get pods
-             
-            
-           
+
 #           run:  |
  #            VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
   #           curl https://storage.googleapis.com/kubernetes-release/release/$VERSION/bin/linux/amd64/kubectl \
