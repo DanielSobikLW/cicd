@@ -54,7 +54,7 @@ jobs:
              aws-region: us-east-1
              
          - name: Trigger Deploy
-           uses: qgxpagamentos/kubectl-aws-eks@master
+           uses: qgxpagamentos/kubectl-aws-eks@v1
            env:
              KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
            with:
