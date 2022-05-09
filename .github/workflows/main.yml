@@ -54,16 +54,11 @@ jobs:
              aws-region: us-east-1
              
          - name: Trigger Deploy
+           uses: qgxpagamentos/kubectl-aws-eks@master
            env:
              KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-             cluster_name: dsobik-cluster
-             K8S_DEPLOYMENT_NAME: whale-dep
-             K8S_NAMESPACE: default
-
-           run:  |
-             echo "$KUBE_CONFIG_DATA" | base64 --decode > /tmp/config \
-             export KUBECONFIG=/tmp/config \
-             kubectl get pods
+           with:
+             args: set image deployment/whale-dep simplewhale=lwsobik/simplewhale:${{ env.GHA_SHA }}
 
 #           run:  |
  #            VERSION=$(curl --silent https://storage.googleapis.com/kubernetes-release/release/stable.txt)
