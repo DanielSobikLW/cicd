@@ -21,6 +21,11 @@ Configure GitHub Actions
 
 - https://docs.docker.com/ci-cd/github-actions/
 
+Lacework Inline Scanner with GitHub Action
+
+- https://github.com/marketplace/actions/lw-scanner
+- https://docs.lacework.com/integrate-the-lacework-inline-scanner-with-ci-pipelines#integrate-with-github-actions
+
 SECRETS Required
 
 AWS_ACCESS_KEY_ID
