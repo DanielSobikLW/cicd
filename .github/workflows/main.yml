@@ -9,6 +9,9 @@ on:
 jobs: 
     build:
         runs-on: ubuntu-latest 
+        
+#Checks out our repo, short has for tagging, build image, lw scanner, login to DH..
+#tag and push image to DH, configure AWS creds, Deploy to EKS cluster
         steps:
          
          - name: Checkout 
