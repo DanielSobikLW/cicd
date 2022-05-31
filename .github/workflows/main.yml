@@ -1,11 +1,14 @@
-name: CI
+name: CICD
+
+#Run workflow on every push in the main branch
 on:
   push:
     branches: [ main ]
 
+#Specify what jobs and what runner wil run them
 jobs: 
     build:
-        runs-on: ubuntu-latest         
+        runs-on: ubuntu-latest 
         steps:
          
          - name: Checkout 
