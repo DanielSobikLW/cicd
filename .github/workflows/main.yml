@@ -36,7 +36,7 @@ jobs:
              SAVE_RESULTS_IN_LACEWORK: true
              SAVE_BUILD_REPORT: true
              BUILD_REPORT_FILE_NAME: myreport.html
-             FAIL_BUILD: true
+             FAIL_BUILD: false
              SEVERITY_THRESHOLD: critical
                 
          - name: Login to Docker Hub
